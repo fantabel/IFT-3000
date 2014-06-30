@@ -1,4 +1,4 @@
-(* regle_existe : regle -> bool *)
+(* regle_existe : regle -> bool *)  
 ~~method regle_existe (r:regle) = false~~
 			
 (* fait_existe : fait -> bool *)
