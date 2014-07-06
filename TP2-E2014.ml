@@ -73,31 +73,48 @@ module Tp2e14 : TP2E14 = struct
 			| _ -> appartient f base_faits
 
 		(* ajouter_regle : regle -> unit *)
-		method ajouter_regle (r:regle) = self#set_base_regles (base_regles @ [r])
+		method ajouter_regle (r:regle) = match self#regle_existe r with
+			| false -> self#set_base_regles (base_regles @ [r])
+			| true -> failwith "La regle existe deja"
 
 		(* supprimer_regle : regle -> unit *)
-		method supprimer_regle (r:regle) = ()
+		method supprimer_regle (r:regle) = 
+			if self#regle_existe r then
+				let (l1, l2) = partition (fun x -> x = r) self#get_base_regles in self#set_base_regles (l2)
+			else
+				print_string "La regle n'existe pas"
 
 		(* ajouter_fait : fait -> unit *)
-		method ajouter_fait (f:fait) = ()
+		method ajouter_fait (f:fait) = match self#fait_existe f with
+			| false -> self#set_base_faits (base_faits @ [f])
+			| true -> failwith "Le fait existe deja"
 
 		(* supprimer_fait : fait -> unit *)
-		method supprimer_fait (f:fait) = ()
+		method supprimer_fait (f:fait) =
+			if self#fait_existe f then
+				let (l1, l2) = partition (fun x -> x = f) self#get_base_faits in self#set_base_faits (l2)
+			else
+				print_string "Le fait n'existe pas"
 
 		(* vider_base_regles : unit *)
-		method vider_base_regles = ()
+		method vider_base_regles =
+			base_regles <- []
 
 		(* vider_base_faits : unit *)
-		method vider_base_faits = ()
+		method vider_base_faits = 
+			base_faits <- []
 
 		(* intialiser_utilisee_regles : unit *)
-		method initialiser_utilisee_regles = ()
+		method initialiser_utilisee_regles =
+			iter (fun x -> x#set_utilisee true) self#get_base_regles
 
 		(* ajouter_liste_regles : (fait list * fait list) list -> unit *)
-		method ajouter_liste_regles (lr:(fait list * fait list) list) = ()
+		method ajouter_liste_regles (lr:(fait list * fait list) list) =
+			iter (fun (l1, l2) -> self#ajouter_regle (new regle l1 l2 false)) lr
 
 		(* ajouter_liste_faits : fait list -> unit *)
-		method ajouter_liste_faits (lf:fait list) = ()
+		method ajouter_liste_faits (lf:fait list) = 
+			iter (fun x -> self#ajouter_fait x) lf
 
 		(* afficher_sexpert : unit *)
 		method afficher_sexpert = 
@@ -113,11 +130,16 @@ module Tp2e14 : TP2E14 = struct
 			let afficher_regles listeDeRegles =
 				iteri (fun i x -> print_string ("Regle numero " ^ string_of_int (i + 1) ^ "\n") ;
 				afficher_premisses x#get_premisses ;
-				afficher_conclusions x#get_conclusions) listeDeRegles in
+				afficher_conclusions x#get_conclusions ;
+				print_string ("utilisee = " ^ string_of_bool x#get_utilisee ^ "\n")) listeDeRegles in
 			print_string "Base des regles:\n" ;
-			afficher_regles self#get_base_regles ;
+			match self#get_base_regles with
+				| [] -> print_string "Liste vide\n"
+				| _ -> afficher_regles self#get_base_regles ;
 			print_string "Base des faits\n" ;
-			afficher_liste self#get_base_faits
+			match self#get_base_faits with
+				| [] -> print_string "Liste vide\n"
+				| _ -> afficher_liste self#get_base_faits
 
 		(* chainage_avant : int *)
 		method chainage_avant = 0

@@ -110,7 +110,7 @@ Base des faits:
 Liste vide
 - : unit = ()
 *)
-(*
+
 print_string "\nAjout une liste de regles au systeme expert";;
 se#ajouter_liste_regles
     [(["nourrit ses petits au lait"], ["est un mammifère"]);
@@ -142,11 +142,9 @@ se#regle_existe r1;;
 
 print_string "\nAjoute un fait au systeme expert";;
 se#ajouter_fait "a des poils";;
-
 (* Résultat:
 - : unit = ()
 *)
-
 print_string "\nAjouter une liste de fait au systeme expert";;
 se#ajouter_liste_faits ["a des ongles";"a un long cou";"est brun";"a des taches noires"];;
 
