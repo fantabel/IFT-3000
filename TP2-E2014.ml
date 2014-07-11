@@ -10,8 +10,8 @@
 (*                                                                 *)
 (*******************************************************************)
 (*                                                                 *)
-(* NOM: _______________________ PRÉNOM:___________________________ *)
-(* MATRICULE: _________________ PROGRAMME: _______________________ *)
+(* NOM: Deslauriers____________ PRÉNOM: Catherine_________________ *)
+(* MATRICULE: 111 017 299______ PROGRAMME: Cert. en informatique__ *)
 (*                                                                 *)
 (*******************************************************************)
 
@@ -104,9 +104,9 @@ module Tp2e14 : TP2E14 = struct
 		method vider_base_faits = 
 			base_faits <- []
 
-		(* intialiser_utilisee_regles : unit *)
+		(* initialiser_utilisee_regles : unit *)
 		method initialiser_utilisee_regles =
-			iter (fun x -> x#set_utilisee true) self#get_base_regles
+			iter (fun x -> x#set_utilisee false) self#get_base_regles
 
 		(* ajouter_liste_regles : (fait list * fait list) list -> unit *)
 		method ajouter_liste_regles (lr:(fait list * fait list) list) =
@@ -125,18 +125,18 @@ module Tp2e14 : TP2E14 = struct
 					print_string (elem ^ "\n") in
 			let longueur l = (length l) - 1 in
 			let afficher_liste uneListe = iteri (fun i x -> print_element x i (longueur uneListe)) uneListe in
-			let afficher_premisses listePremisses = print_string " Premisses: " ; afficher_liste listePremisses in
+			let afficher_premisses listePremisses = print_string " Prémisses: " ; afficher_liste listePremisses in
 			let afficher_conclusions listeConclusions = print_string " Conclusions: " ; afficher_liste listeConclusions in
 			let afficher_regles listeDeRegles =
-				iteri (fun i x -> print_string ("Regle numero " ^ string_of_int (i + 1) ^ "\n") ;
+				iteri (fun i x -> print_string ("Règle numero " ^ string_of_int (i + 1) ^ ":\n") ;
 				afficher_premisses x#get_premisses ;
 				afficher_conclusions x#get_conclusions ;
 				print_string ("utilisee = " ^ string_of_bool x#get_utilisee ^ "\n")) listeDeRegles in
-			print_string "Base des regles:\n" ;
+			print_string "Base des règles:\n" ;
 			match self#get_base_regles with
 				| [] -> print_string "Liste vide\n"
 				| _ -> afficher_regles self#get_base_regles ;
-			print_string "Base des faits\n" ;
+			print_string "Base des faits:\n" ;
 			match self#get_base_faits with
 				| [] -> print_string "Liste vide\n"
 				| _ -> afficher_liste self#get_base_faits
