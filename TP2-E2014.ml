@@ -1,16 +1,16 @@
 (*******************************************************************)
 (* Langages de Programmation: IFT 3000 NRC 51158                   *)
-(* TP2 HIVER 2013. Date limite: mercredi 16 juillet � 17h00        *)
+(* TP2 HIVER 2013. Date limite: mercredi 16 juillet à 17h00        *)
 (* Enseignant: Mondher Bouden (ift3000-e2014@ift.ulaval.ca)        *)
-(* Implanter un syst�me expert en utilsiant l'orient� objet        *)
+(* Implanter un système expert en utilsiant l'orient� objet        *)
 (*******************************************************************)
 (*                                                                 *)
-(* NOM: _St-Hilaire____________ PR�NOM:_Jimmy_____________________ *)
+(* NOM: _St-Hilaire____________ PRÉNOM:_Jimmy_____________________ *)
 (* MATRICULE: _________________ PROGRAMME: Certificat Informatique *)
 (*                                                                 *)
 (*******************************************************************)
 (*                                                                 *)
-(* NOM: Deslauriers____________ PR�NOM: Catherine_________________ *)
+(* NOM: Deslauriers____________ PRÉNOM: Catherine_________________ *)
 (* MATRICULE: 111 017 299______ PROGRAMME: Cert. en informatique__ *)
 (*                                                                 *)
 (*******************************************************************)
@@ -60,7 +60,7 @@ module Tp2e14 : TP2E14 = struct
                                   (parent#get_sorte_sexpert) ^ ": " ^ 
                                   (self#get_nom_sexpert)) ; print_newline()
 
-		(* M�thodes � implanter *)
+		(* Méthodes à implanter *)
 
 		(* regle_existe : regle -> bool *)
 		method regle_existe (r:regle) = match base_regles with
