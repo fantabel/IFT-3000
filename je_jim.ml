@@ -14,7 +14,8 @@ Sys.chdir;;
 
 (* On charge le fichier ml du Tp après avoir implanté 
 les méthodes demandées pour realiser les tests  *)
-print_string "\nChargement du fichier TP2-E2014.ml";;
+print_string "\nChargement du fichier TP2-E2014.ml\n";;
+print_string "==================================\n";;
 #use "TP2-E2014.ml";;
 
 (* Résultat:
@@ -75,7 +76,8 @@ open Tp2e14;;
 
 (* On exécute maintenant les méthodes une à une *)
 
-print_string "\nCreation du systeme expert taxonomique.";;
+print_string "\nCreation du systeme expert taxonomique.\n";;
+print_string "=======================================\n";;
 let se = new sexpert_taxonomique "Système expert taxonomique" "Classer des espèces animales";;
 
 (* Résultat:
@@ -83,21 +85,24 @@ Nouveau Système expert taxonomique: Classer des espèces animales
 val se : Tp2e14.sexpert_taxonomique = <obj>
 *)
 
-print_string "\nCreation d'une regle";;
+print_string "\nCreation d'une regle\n";;
+print_string "====================";;
 let r1 = new regle ["a des poils"] ["est un mammifère"] false;;
 
 (* Résultat:
 val r1 : Tp2e14.regle = <obj>
 *)
 
-print_string "\nAjout de la regle au systeme expert";;
+print_string "\nAjout de la regle au systeme expert\n";;
+print_string "===================================";;
 se#ajouter_regle r1;;
 
 (* Résultat:
 - : unit = ()
 *)
 
-print_string "\nAffichage du systeme expert";;
+print_string "\nAffichage du systeme expert\n";;
+print_string "===========================\n";;
 se#afficher_sexpert;;
 
 (* Résultat:
@@ -111,7 +116,8 @@ Liste vide
 - : unit = ()
 *)
 
-print_string "\nAjout une liste de regles au systeme expert";;
+print_string "\nAjout une liste de regles au systeme expert\n";;
+print_string "===========================================";;
 se#ajouter_liste_regles
     [(["nourrit ses petits au lait"], ["est un mammifère"]);
      (["a des plumes"],["est un oiseau"]);
@@ -133,7 +139,9 @@ se#ajouter_liste_regles
 - : unit = ()
 *)
 
-print_string "\nVerification de la presence de la premiere regle ajoute au Systeme";;
+print_string "\nVerification de la presence de la premiere regle ajoute au Systeme\n";;
+print_string
+"==================================================================";;
 se#regle_existe r1;;
 
 (* Résultat:
@@ -141,11 +149,13 @@ se#regle_existe r1;;
 *)
 
 print_string "\nAjoute un fait au systeme expert";;
+print_string "\n================================";;
 se#ajouter_fait "a des poils";;
 (* Résultat:
 - : unit = ()
 *)
 print_string "\nAjouter une liste de fait au systeme expert";;
+print_string "\n===========================================";;
 se#ajouter_liste_faits ["a des ongles";"a un long cou";"est brun";"a des taches noires"];;
 
 (* Résultat:
@@ -153,6 +163,7 @@ se#ajouter_liste_faits ["a des ongles";"a un long cou";"est brun";"a des taches 
 *)
 
 print_string "\nAfficher le systeme expert";;
+print_string "\n==========================\n";;
 se#afficher_sexpert;;
 
 (* Résultat:
@@ -227,6 +238,7 @@ a des poils; a des ongles; a un long cou; est brun; a des taches noires
 *)
 
 print_string "\nEffectuer le chainage avant";;
+print_string "\n===========================";;
 se#chainage_avant;;
 
 (* Résultat:
@@ -234,6 +246,7 @@ se#chainage_avant;;
 *)
 
 print_string "\nAfficher le systeme expert";;
+print_string "\n==========================\n";;
 se#afficher_sexpert;;
 
 (* Résultat:
@@ -308,6 +321,7 @@ a des poils; a des ongles; a un long cou; est brun; a des taches noires; est un 
 *)
 
 print_string "\nVerifie si le fait est une girafe est present";;
+print_string "\n=============================================";;
 se#fait_existe "est une girafe";;
 
 (* Résultat:
@@ -315,6 +329,7 @@ se#fait_existe "est une girafe";;
 *)
 
 print_string "\nVider la base des faits";;
+print_string "\n=======================";;
 se#vider_base_faits;;
 
 (* Résultat:
@@ -322,6 +337,7 @@ se#vider_base_faits;;
 *)
 
 print_string "\nReinitialiser les regles utilisee";;
+print_string "\n=================================";;
 se#initialiser_utilisee_regles;;
 
 (* Résultat:
@@ -329,6 +345,7 @@ se#initialiser_utilisee_regles;;
 *)
 
 print_string "\nAfficher le systeme expert";;
+print_string "\n==========================\n";;
 se#afficher_sexpert;;
 
 (* Résultat:
@@ -403,6 +420,7 @@ Liste vide
 *)
 
 print_string "\nAjout d'une liste de faits";;
+print_string "\n==========================";;
 se#ajouter_liste_faits ["a des poils";"a des dents pointues";"a des griffes";
 			"a les yeux dirigés en avant"; "est brun"; "a des taches noires"];;
 
@@ -411,6 +429,7 @@ se#ajouter_liste_faits ["a des poils";"a des dents pointues";"a des griffes";
 *)
 
 print_string "\nAfficher le systeme expert";;
+print_string "\n==========================\n";;
 se#afficher_sexpert;;
 
 (* Résultat:
@@ -485,6 +504,7 @@ a des poils; a des dents pointues; a des griffes; a les yeux dirigés en avant; e
 *)
 
 print_string "\nChainage arriere sur est un guepard";;
+print_string "\n===================================\n";;
 se#chainage_arriere "est un guépard";;
 
 (* Résultat:
@@ -632,4 +652,4 @@ with
 Le système expert ne contient pas de faits
 - : unit = ()
 *)
-*)
+
