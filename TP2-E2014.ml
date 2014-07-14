@@ -186,22 +186,45 @@ module Tp2e14 : TP2E14 = struct
 				!faits_ajoutes;
 
 		(* chainage_arriere : fait -> bool *)
-		method chainage_arriere (f:fait) = match self#get_base_faits, self#get_base_regles with
-			| [],[] -> failwith "Le système expert est vide"
-			| _,[] -> failwith "Le système expert ne contient pas de règles"
-			| [],_ -> failwith "Le système expert ne contient pas de faits"
-			| lf,lr ->
+		method chainage_arriere (f:fait) = 
+			let rec chainage_arriere_rec (h:fait) = match self#get_base_faits, self#get_base_regles with
+				| [],[] -> failwith "Le système expert est vide"
+				| _,[] -> failwith "Le système expert ne contient pas de règles"
+				| [],_ -> failwith "Le système expert ne contient pas de faits"
+				| lf,lr ->
+					print_string ("Recherche de conclusion " ^ h ^ "\n");
+					let verifie = ref false in
 					for i = 0 to (length lr) - 1 do (* Parcourir les règles *)
 						let reg = nth lr i in
 						let lc = reg#get_conclusions in
 						for j = 0 to (length lc) - 1 do (* Parcourir les conclusions *)
-							let conc = nth lc j in (* Récupère la conclusion à vérifier *)
-							if conc = f then
-								print_string "Fait Trouve!";
+							if (!verifie = false) then begin
+								let conc = nth lc j in (* Récupère la conclusion à vérifier *)
+								if conc = h then begin
+									print_string ("Conclusion trouve : " ^ h ^ "\n");
+									verifie := true;
+									let lp = reg#get_premisses in
+									for k = 0 to (length lp) - 1 do
+										let prem = nth lp k in
+										print_string ("Verifier premise : " ^ prem ^ " - " ^ conc ^ "\n");
+										if (appartient prem lf)
+										then begin
+											print_string ("  Premise " ^ prem ^ " present dans la liste des faits\n") end
+										else if chainage_arriere_rec prem
+										then begin
+											print_string ("  Premise " ^ prem ^ " verifiable par hypothese\n") end
+										else begin
+											print_string ("  Premise " ^ prem ^ " non verifiable\n");
+											verifie := false
+										end;
+									done;
+								end;
+							end;
 						done;
 					done;
-					print_string "\n\n\n";
-					false;
+					!verifie in 
+						chainage_arriere_rec f;
+
 
 	end
 
