@@ -60,7 +60,7 @@ module Tp2e14 : TP2E14 = struct
                                   (parent#get_sorte_sexpert) ^ ": " ^ 
                                   (self#get_nom_sexpert)) ; print_newline()
 
-		(* M�thodes � implanter *)
+		(* Méthodes à implanter *)
 
 		(* regle_existe : regle -> bool *)
 		method regle_existe (r:regle) = match base_regles with
@@ -196,7 +196,7 @@ module Tp2e14 : TP2E14 = struct
 				| _,[] -> failwith "Le système expert ne contient pas de règles"
 				| [],_ -> failwith "Le système expert ne contient pas de faits"
 				| lf,lr ->
-					print_string ("Recherche de conclusion " ^ h ^ "\n");
+					(*print_string ("Recherche de conclusion " ^ h ^ "\n");*)
 					let verifie = ref false in
 					for i = 0 to (length lr) - 1 do (* Parcourir les règles *)
 						let reg = nth lr i in
@@ -205,20 +205,20 @@ module Tp2e14 : TP2E14 = struct
 							if (!verifie = false) then begin
 								let conc = nth lc j in (* Récupère la conclusion à vérifier *)
 								if conc = h then begin
-									print_string ("Conclusion trouve : " ^ h ^ "\n");
+									(*print_string ("Conclusion trouve : " ^ h ^ "\n");*)
 									verifie := true;
 									let lp = reg#get_premisses in
 									for k = 0 to (length lp) - 1 do
 										let prem = nth lp k in
-										print_string ("Verifier premise : " ^ prem ^ " - " ^ conc ^ "\n");
+										(*print_string ("Verifier premise : " ^ prem ^ " - " ^ conc ^ "\n");*)
 										if (appartient prem lf)
 										then begin
-											print_string ("  Premise " ^ prem ^ " present dans la liste des faits\n") end
+											(*print_string ("  Premise " ^ prem ^ " present dans la liste des faits\n")*) end
 										else if chainage_arriere_rec prem
 										then begin
-											print_string ("  Premise " ^ prem ^ " verifiable par hypothese\n") end
+											(*print_string ("  Premise " ^ prem ^ " verifiable par hypothese\n")*) end
 										else begin
-											print_string ("  Premise " ^ prem ^ " non verifiable\n");
+											(*print_string ("  Premise " ^ prem ^ " non verifiable\n");*)
 											verifie := false
 										end;
 									done;
