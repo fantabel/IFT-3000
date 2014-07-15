@@ -1,16 +1,16 @@
 (*******************************************************************)
 (* Langages de Programmation: IFT 3000 NRC 51158                   *)
-(* TP2 HIVER 2013. Date limite: mercredi 16 juillet à 17h00        *)
+(* TP2 HIVER 2013. Date limite: mercredi 16 juillet Ã  17h00        *)
 (* Enseignant: Mondher Bouden (ift3000-e2014@ift.ulaval.ca)        *)
-(* Implanter un système expert en utilsiant l'orient? objet        *)
+(* Implanter un systÃ¨me expert en utilisant l'orientÃ© objet        *)
 (*******************************************************************)
 (*                                                                 *)
-(* NOM: _St-Hilaire____________ PRÉNOM:_Jimmy_____________________ *)
+(* NOM: _St-Hilaire____________ PRÃ‰NOM:_Jimmy_____________________ *)
 (* MATRICULE: _________________ PROGRAMME: Certificat Informatique *)
 (*                                                                 *)
 (*******************************************************************)
 (*                                                                 *)
-(* NOM: Deslauriers____________ PRÉNOM: Catherine_________________ *)
+(* NOM: Deslauriers____________ PRÃ‰NOM: Catherine_________________ *)
 (* MATRICULE: 111 017 299______ PROGRAMME: Cert. en informatique__ *)
 (*                                                                 *)
 (*******************************************************************)
@@ -60,7 +60,7 @@ module Tp2e14 : TP2E14 = struct
                                   (parent#get_sorte_sexpert) ^ ": " ^ 
                                   (self#get_nom_sexpert)) ; print_newline()
 
-		(* Méthodes à implanter *)
+		(* Mï¿½thodes ï¿½ implanter *)
 
 		(* regle_existe : regle -> bool *)
 		method regle_existe (r:regle) = match base_regles with
@@ -82,9 +82,9 @@ module Tp2e14 : TP2E14 = struct
 			if self#regle_existe r then
 				let (l1, l2) = partition (fun x -> x = r) self#get_base_regles in self#set_base_regles (l2)
 			else if self#get_base_regles != [] && self#get_base_faits != [] then
-				failwith "Le système expert est vide"
+				failwith "Le systÃ¨me expert est vide"
 			else
-				failwith "Le système expert ne contient pas cette règle"
+				failwith "Le systÃ¨me expert ne contient pas cette rÃ¨gle"
 
 		(* ajouter_fait : fait -> unit *)
 		method ajouter_fait (f:fait) = match self#fait_existe f with
@@ -96,9 +96,9 @@ module Tp2e14 : TP2E14 = struct
 			if self#fait_existe f then
 				let (l1, l2) = partition (fun x -> x = f) self#get_base_faits in self#set_base_faits (l2)
 			else if self#get_base_regles != [] && self#get_base_faits != [] then
-				failwith "Le système expert est vide"
+				failwith "Le systÃ¨me expert est vide"
 			else
-				print_string "Le système expert ne contient pas ce fait"
+				print_string "Le systÃ¨me expert ne contient pas ce fait"
 
 		(* vider_base_regles : unit *)
 		method vider_base_regles =
@@ -129,14 +129,14 @@ module Tp2e14 : TP2E14 = struct
 					print_string (elem ^ "\n") in
 			let longueur l = (length l) - 1 in
 			let afficher_liste uneListe = iteri (fun i x -> print_element x i (longueur uneListe)) uneListe in
-			let afficher_premisses listePremisses = print_string " Prémisses: " ; afficher_liste listePremisses in
+			let afficher_premisses listePremisses = print_string " PrÃ©misses: " ; afficher_liste listePremisses in
 			let afficher_conclusions listeConclusions = print_string " Conclusions: " ; afficher_liste listeConclusions in
 			let afficher_regles listeDeRegles =
-				iteri (fun i x -> print_string ("Règle numero " ^ string_of_int (i + 1) ^ ":\n") ;
+				iteri (fun i x -> print_string ("RÃ¨gle numero " ^ string_of_int (i + 1) ^ ":\n") ;
 				afficher_premisses x#get_premisses ;
 				afficher_conclusions x#get_conclusions ;
 				print_string ("utilisee = " ^ string_of_bool x#get_utilisee ^ "\n")) listeDeRegles in
-			print_string "Base des règles:\n" ;
+			print_string "Base des rÃ¨gles:\n" ;
 			match self#get_base_regles with
 				| [] -> print_string "Liste vide\n"
 				| _ -> afficher_regles self#get_base_regles ;
@@ -147,59 +147,63 @@ module Tp2e14 : TP2E14 = struct
 
 		(* chainage_avant : int *)
 		method chainage_avant = match self#get_base_faits, self#get_base_regles with
-			| [],[] -> failwith "Le système expert est vide"
-			| _,[] -> failwith "Le système expert ne contient pas de règles"
-			| [],_ -> failwith "Le système expert ne contient pas de faits"
+						| [],[] -> failwith "Le systÃ¨me expert est vide"
+			| _,[] -> failwith "Le systÃ¨me expert ne contient pas de rÃ¨gles"
+			| [],_ -> failwith "Le systÃ¨me expert ne contient pas de faits"
 			| lf,lr ->
 				let lf' = ref lf in
 				let sature = ref false in
 				let faits_ajoutes = ref 0 in
 
 				while (not !sature) do  (* Processus de saturation *)
-          sature := true;
-					for i = 0 to (length lr) - 1 do (* Parcourir les règles *)
-						let reg = nth lr i in (* Récupère la règle à vérifier *)
-						if (reg#get_utilisee) = false then
+				        sature := true;
+					for i = 0 to (length lr) - 1 do (* Parcourir les rÃ¨gles *)
+						let reg = nth lr i in (* RÃ©cupÃ¨re la rÃ¨gle Ã  vÃ©rifier *)
+						if (reg#get_utilisee) = false then begin
 									reg#set_utilisee true;
 									let lp = reg#get_premisses in
-									for j = 0 to (length lp) - 1 do (* Parcourir les prémisses *)
-											let prem = nth lp j in (* Récupère la prémisse à vérifier *)
-											if (not (appartient prem !lf')) then
+									for j = 0 to (length lp) - 1 do (* Parcourir les prÃ©misses *)
+											let prem = nth lp j in (* RÃ©cupÃ¨re la prÃ©misse Ã  vÃ©rifier *)
+											if (not (appartient prem !lf')) then begin
 													reg#set_utilisee false;
+											end;
 									done;
 
-									if (reg#get_utilisee) then (*Si la règle est vérifiée *)
+									if (reg#get_utilisee) then begin (*Si la rÃ¨gle est vÃ©rifiÃ©e *)
 											(* Ajoute les conclusions aux nouveaux faits *)
 											let lc = reg#get_conclusions in
 											for k = 0 to (length lc) - 1 do (* Parcourir les conclusions *)
-												let conc = nth lc k in (* Récupère la conclusion à vérifier *)
-												if (not (appartient conc !lf')) then
+												let conc = nth lc k in (* RÃ©cupÃ¨re la conclusion Ã  vÃ©rifier *)
+												if (not (appartient conc !lf')) then begin
 													lf' := !lf' @ [conc];
 													faits_ajoutes := !faits_ajoutes + 1;
+												end;
 											done;
-											sature := false; (* On recommence avec les règles *)
-									else
-										sature := true; (* Le système est saturé *)
+											sature := false; (* On recommence avec les rÃ¨gles *)
+									end else begin
+										sature := true; (* Le systÃ¨me est saturÃ© *)
+									end;
+						 end;
 					done;
 				done;
-	
+
 				!faits_ajoutes;
 
 		(* chainage_arriere : fait -> bool *)
 		method chainage_arriere (f:fait) = 
 			let rec chainage_arriere_rec (h:fait) = match self#get_base_faits, self#get_base_regles with
-				| [],[] -> failwith "Le système expert est vide"
-				| _,[] -> failwith "Le système expert ne contient pas de règles"
-				| [],_ -> failwith "Le système expert ne contient pas de faits"
+				| [],[] -> failwith "Le systÃ¨me expert est vide"
+				| _,[] -> failwith "Le systÃ¨me expert ne contient pas de rÃ¨gles"
+				| [],_ -> failwith "Le systÃ¨me expert ne contient pas de faits"
 				| lf,lr ->
 					print_string ("Recherche de conclusion " ^ h ^ "\n");
 					let verifie = ref false in
-					for i = 0 to (length lr) - 1 do (* Parcourir les règles *)
+					for i = 0 to (length lr) - 1 do (* Parcourir les rÃ¨gles *)
 						let reg = nth lr i in
 						let lc = reg#get_conclusions in
 						for j = 0 to (length lc) - 1 do (* Parcourir les conclusions *)
 							if (!verifie = false) then begin
-								let conc = nth lc j in (* Récupère la conclusion à vérifier *)
+								let conc = nth lc j in (* RÃ©cupÃ¨re la conclusion Ã  vÃ©rifier *)
 								if conc = h then begin
 									print_string ("Conclusion trouve : " ^ h ^ "\n");
 									verifie := true;
